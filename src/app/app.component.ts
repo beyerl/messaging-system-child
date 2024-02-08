@@ -17,6 +17,7 @@ export class AppComponent {
   }
 
   onSample(): void {
+    this.hostLogs.push(`Triggering send via button`);
     this.sendSelectedItemToHost()
   }
 
