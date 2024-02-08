@@ -26,13 +26,13 @@ export class AppComponent {
     if (!(window as any).chrome && !window.top) {
       console.log("Cannot find host connext.")
     }
-
-    if ((window as any).chrome) {
-      (window as any).chrome.webview.postMessage(this.selectedItem)
-    }
     if (window.top) {
       window.top.postMessage(this.selectedItem)
     }
+    if ((window as any)?.chrome?.webview) {
+      (window as any).chrome.webview.postMessage(this.selectedItem)
+    }
+
   }
 
   onItemSelected(index: number): void {
