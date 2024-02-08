@@ -23,7 +23,7 @@ export class AppComponent {
   sendSelectedItemToHost() {
     this.hostLogs.push(`Sending Item ${this.selectedItem} to host`);
 
-    window.top?.postMessage(this.selectedItem)
+    window.top?.postMessage(this.selectedItem, '*')
 
     if ((window as any)?.chrome?.webview) {
       (window as any).chrome.webview.postMessage(this.selectedItem)
