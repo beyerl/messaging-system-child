@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   handleMessage(event: any) {
-    if (event.data === 'sendselecteditem' && event instanceof MessageEvent) {
+    if (event.data === 'sendselecteditem') {
       this.sendSelectedItemToHost();
     }
   }
