@@ -8,7 +8,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   ngOnInit(): void {
     if ((window as any)?.chrome?.webview) {
-      (window as any).chrome.webview.addEventListener('message', (event: MessageEvent<any>) => {
+      (window as any).chrome.webview.addEventListener('message', (event: Event) => {
         this.handleMessage(event)
       });
     }
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.handleMessage(event)
   }
 
-  handleMessage(event: MessageEvent) {
+  handleMessage(event: any) {
     if (event.data === 'sendselecteditem' && event instanceof MessageEvent) {
       this.sendSelectedItemToHost();
     }
