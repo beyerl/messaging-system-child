@@ -11,7 +11,7 @@ export class AppComponent {
 
   @HostListener('window:message', ['$event'])
   onMessage(event: MessageEvent): void {
-    if (event.data === 'message' && event instanceof MessageEvent) {
+    if (event.data === 'sendselecteditem' && event instanceof MessageEvent) {
       this.sendSelectedItemToHost();
     }
   }
