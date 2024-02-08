@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,31 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'messaging-system-child';
+  selectedItem: number | null = null;
+  hostLogs: string[] = [];
+
+  @HostListener('window:message', ['$event'])
+  onMessage(event: MessageEvent): void {
+    if (event.data === 'message' && event instanceof MessageEvent) {
+      this.sendSelectedItemToHost();
+    }
+  }
+
+  onSample(): void {
+    this.sendSelectedItemToHost()
+  }
+
+  sendSelectedItemToHost() {
+    this.hostLogs.push(`Sending Item ${this.selectedItem} to host`);
+    if ((window as any).chrome) {
+      (window as any).chrome.webview.postMessage(this.selectedItem)
+    } else if (window.top) {
+      window.top.postMessage(this.selectedItem)
+    }
+  }
+
+  onItemSelected(index: number): void {
+    // Update the selected item index in the app component
+    this.selectedItem = index;
+  }
 }

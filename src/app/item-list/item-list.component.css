@@ -1,0 +1,2 @@
+li { cursor: pointer; list-style-type: none; margin: 5px; padding: 10px; border: 1px solid #ccc; }
+.selected { background-color: #e0e0e0; }
