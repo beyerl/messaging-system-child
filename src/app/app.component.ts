@@ -22,9 +22,15 @@ export class AppComponent {
 
   sendSelectedItemToHost() {
     this.hostLogs.push(`Sending Item ${this.selectedItem} to host`);
+
+    if (!(window as any).chrome && !window.top) {
+      console.log("Cannot find host connext.")
+    }
+
     if ((window as any).chrome) {
       (window as any).chrome.webview.postMessage(this.selectedItem)
-    } else if (window.top) {
+    }
+    if (window.top) {
       window.top.postMessage(this.selectedItem)
     }
   }
