@@ -1,5 +1,6 @@
 <ul>
-    <li *ngFor="let item of items; let i = index" (click)="onItemClick(i)" [class.selected]="i === selectedItem">
+    <li *ngFor="let item of items; let i = index" (click)="onItemClick(i)" [class.selected]="i === selectedItem" [id]="i" draggable="true"
+        (ondragstart)="onDrag($event)">
         Item {{ i + 1 }}
     </li>
 </ul>
