@@ -23,8 +23,9 @@ export class ItemListComponent implements OnInit {
     this.selectedItemChange.emit(index + 1);
   }
 
-  onDrag(ev: any): void {
+  drag(ev: DragEvent) {
     console.log("🚀 ~ ItemListComponent ~ drag ~ ev:", ev)
-    ev.dataTransfer?.setData("MyDragData", ev.target?.id);
+    ev.dataTransfer?.setData("MyDragData", (ev.target as HTMLElement).id);
+    console.log(ev.dataTransfer?.getData("MyDragData"));
   }
 }
