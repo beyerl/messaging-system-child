@@ -9,6 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class ItemListComponent implements OnInit {
   @Output() selectedItemChange = new EventEmitter<number>();
+  @Output() itemDragStart = new EventEmitter<{ dragEvent: DragEvent, index: number }>();
 
   ngOnInit(): void {
     this.selectedItemChange.emit(this.selectedItem + 1);
@@ -23,9 +24,9 @@ export class ItemListComponent implements OnInit {
     this.selectedItemChange.emit(index + 1);
   }
 
-  drag(ev: DragEvent) {
-    console.log("🚀 ~ ItemListComponent ~ drag ~ ev:", ev)
-    ev.dataTransfer?.setData("MyDragData", (ev.target as HTMLElement).id);
-    console.log(ev.dataTransfer?.getData("MyDragData"));
+  onDragStart(event: DragEvent, index: number) {
+    this.itemDragStart.emit({ dragEvent: event, index: index + 1 })
   }
+
+
 }
