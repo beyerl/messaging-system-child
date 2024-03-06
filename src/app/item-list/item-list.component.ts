@@ -10,6 +10,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class ItemListComponent implements OnInit {
   @Output() selectedItemChange = new EventEmitter<number>();
   @Output() itemDragStart = new EventEmitter<{ dragEvent: DragEvent, index: number }>();
+  @Output() itemDragEnd = new EventEmitter<{ dragEvent: DragEvent, index: number }>();
 
   ngOnInit(): void {
     this.selectedItemChange.emit(this.selectedItem + 1);
@@ -28,5 +29,7 @@ export class ItemListComponent implements OnInit {
     this.itemDragStart.emit({ dragEvent: event, index: index + 1 })
   }
 
-
+  onDragEnd(event: DragEvent, index: number) {
+    this.itemDragEnd.emit({ dragEvent: event, index: index + 1 })
+  }
 }

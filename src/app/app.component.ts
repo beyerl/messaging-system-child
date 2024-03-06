@@ -30,7 +30,14 @@ export class AppComponent implements OnInit {
       case 'sendselecteditem':
         this.sendSelectedItemToHost();
         break;
+      case 'dragoverdroparea':
+        this.setDropCursor();
+        break;
     }
+  }
+
+  setDropCursor() {
+    console.error("not implemented");
   }
 
   onSample(): void {
@@ -47,6 +54,19 @@ export class AppComponent implements OnInit {
     if ((window as any)?.chrome?.webview) {
       (window as any).chrome.webview.postMessage(message)
     }
+  }
+
+  onItemDragEnd($event: { dragEvent: DragEvent, index: number }) {
+    let message: IInteractionMessage = {
+      type: InteractionType.DragEnd,
+      payload: $event.index.toString(),
+      eventCoordinates: {
+        x: $event.dragEvent.pageX,
+        y: $event.dragEvent.pageY,
+      }
+    }
+
+    window.top?.postMessage(message, '*')
   }
 
   sendSelectedItemToHost() {
