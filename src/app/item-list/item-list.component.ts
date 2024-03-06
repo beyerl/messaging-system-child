@@ -28,8 +28,4 @@ export class ItemListComponent implements OnInit {
   onDragStart(event: DragEvent, index: number) {
     this.itemDragStart.emit({ dragEvent: event, index: index + 1 })
   }
-
-  onDragEnd(event: DragEvent, index: number) {
-    this.itemDragEnd.emit({ dragEvent: event, index: index + 1 })
-  }
 }

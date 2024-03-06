@@ -46,6 +46,8 @@ export class AppComponent implements OnInit {
   }
 
   onItemDragStart(event: { dragEvent: DragEvent, index: number }) {
+    event.dragEvent.dataTransfer?.setData("text/plain", event.index.toString());
+
     let message: IInteractionMessage = {
       type: InteractionType.DragStart,
       payload: event.index.toString()
@@ -54,19 +56,6 @@ export class AppComponent implements OnInit {
     if ((window as any)?.chrome?.webview) {
       (window as any).chrome.webview.postMessage(message)
     }
-  }
-
-  onItemDragEnd($event: { dragEvent: DragEvent, index: number }) {
-    let message: IInteractionMessage = {
-      type: InteractionType.DragEnd,
-      payload: $event.index.toString(),
-      eventCoordinates: {
-        x: $event.dragEvent.pageX,
-        y: $event.dragEvent.pageY,
-      }
-    }
-
-    window.top?.postMessage(message, '*')
   }
 
   sendSelectedItemToHost() {
